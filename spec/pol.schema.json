@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fiveclaww.dev/schemas/pol/v1",
+  "title": "ProofOfLaborRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "agent_id",
+    "input_hash",
+    "output_hash",
+    "proof",
+    "success",
+    "created_at",
+    "signing_public_key_b58",
+    "signature_b64"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "fiveclaww.pol.v1"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "type": "string",
+      "pattern": "^did:fiveclaww:[1-9A-HJ-NP-Za-km-z]{32,44}$"
+    },
+    "input_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "output_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "proof": {
+      "type": "object",
+      "description": "Opaque proof payload (e.g. execution receipt, attestation ref).",
+      "additionalProperties": true
+    },
+    "success": {
+      "type": "boolean"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "signing_public_key_b58": {
+      "type": "string",
+      "minLength": 32
+    },
+    "signature_b64": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fiveclaww.dev/schemas/escrow-payment/v1",
+  "title": "EscrowPaymentIntent",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "x402-shaped interface: quote → lock → verify → settle. Chain-specific settlement is out of band for this schema.",
+  "required": ["schema_version", "intent_id", "payer_agent_id", "payee_agent_id", "amount_minor", "currency_code", "state"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "fiveclaww.escrow_payment.v1"
+    },
+    "intent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "payer_agent_id": {
+      "type": "string",
+      "pattern": "^did:fiveclaww:[1-9A-HJ-NP-Za-km-z]{32,44}$"
+    },
+    "payee_agent_id": {
+      "type": "string",
+      "pattern": "^did:fiveclaww:[1-9A-HJ-NP-Za-km-z]{32,44}$"
+    },
+    "amount_minor": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "currency_code": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 16
+    },
+    "state": {
+      "type": "string",
+      "enum": ["quoted", "locked", "executing", "pending_verification", "settled", "disputed", "cancelled"]
+    },
+    "settlement_ref": {
+      "type": "string",
+      "description": "Opaque reference to on-chain receipt or custodial ledger row."
+    }
+  }
+}

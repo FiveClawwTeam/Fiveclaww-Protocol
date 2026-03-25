@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fiveclaww.dev/schemas/reputation/v1",
+  "title": "ReputationSnapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "agent_id", "scope", "tasks_completed", "tasks_failed", "local_score"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "fiveclaww.reputation.v1"
+    },
+    "agent_id": {
+      "type": "string",
+      "pattern": "^did:fiveclaww:[1-9A-HJ-NP-Za-km-z]{32,44}$"
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["local", "network"],
+      "description": "local = dev/mock only; network = issued by Fiveclaww (not reproducible in this repo)."
+    },
+    "tasks_completed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "tasks_failed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "local_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "confidence_note": {
+      "type": "string"
+    }
+  }
+}
